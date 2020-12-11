@@ -1,48 +1,41 @@
-import {
-  AIR_URL,
-  API_KEY,
-  GET_APP_KEY
-} from "../../constant"
+import { AIR_URL, API_KEY } from "../../constant";
 
-export const getListCountry = async () =>{
+const chooseUrl = (what, region, city ) =>{
+  let url = "";
+  // ORIGINALE:  const url = `${AIR_URL}/city?city=${city}&state=${region}&country=Italy&key=${API_KEY}`
+  switch (what) {
+  case "region": {
 
-  try {
-    const url = `${AIR_URL}/countries?key=${GET_APP_KEY}`
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": '*'
-
-      },
-      // mode:'no-cors'
-
-
-    })
-    const data = await response.json()
-
-    console.log('data', data)
-    return data
-  } catch (err) {
-    console.log('error', err); // TypeError: failed to fetch
+     url = `${AIR_URL}/states?country=Italy&key=${API_KEY}`;
+     break
   }
+  case "list-cities": {
 
+     url = `${AIR_URL}/cities?state=${region}&country=Italy&key=${API_KEY}`;
+     break
+  }
+  case "specific-city": {
+     url = `${AIR_URL}/city?city=${city}&state=${region}&country=Italy&key=${API_KEY}`;
+     break
+  }
+  default: 
+  break
+}
+return url
 }
 
-export const getCityAir = async (city, region)=>{
-
+export const getAir = async (what, city, region) => {
   try {
     let requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
+      method: "GET",
+      redirect: "follow",
     };
-    const url = `${AIR_URL}/city?city=${city}&state=${region}&country=Italy&key=${API_KEY}`
-
-    const response = await fetch(url, requestOptions)
-    const data = await response.json()
-    console.log(data)
-    return data
+    const url = chooseUrl(what, city, region)
+    const response = await fetch(url, requestOptions);
+    const data = await response.json();
+    console.log(data.data);
+    return data;
   } catch (err) {
-    console.log('error', err); // TypeError: failed to fetch
+    console.log("error", err); // TypeError: failed to fetch
   }
-}
+};
