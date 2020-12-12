@@ -4,7 +4,7 @@ const chooseUrl = (what, region, city ) =>{
   let url = "";
 
   switch (what) {
-  case "region": {
+  case "regions": {
 
      url = `${AIR_URL}/states?country=Italy&key=${API_KEY}`; // get a list of supported regions
      break
@@ -33,7 +33,7 @@ export const getAir = async (what, city, region) => {
     const url = chooseUrl(what, city, region)
     const response = await fetch(url, requestOptions);
     const data = await response.json();
-    console.log(data.data);
+
     return data;
   } catch (err) {
     console.log("error", err); // TypeError: failed to fetch
