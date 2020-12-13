@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState([]);
+  
 
   const getData = async (what, region, city) => { //fetch data
     const data = await getAir(what, region, city);
@@ -19,6 +20,7 @@ function App() {
       else if (what==='list-cities') {
         console.log('list-cities data', data);
         setCities(data.data)
+        setRegions({});
       }
       
     
@@ -27,12 +29,7 @@ function App() {
 
 
 
-  const fetchNextList = async (nextThingToExplore) => { //show the cities of a specific region
-    const newDatas = await getData("list-cities", nextThingToExplore);
 
-    setCities(newDatas)
-    setRegions({});
-  };
 
   return (
     <div className="App">
@@ -56,11 +53,14 @@ function App() {
               <ListItem
                 key={index}
                 element={el.state}
-                openRegion={() => fetchNextList(el.state)}
+                openRegion={() => getData('list-cities', el.state)}
               />
             );
           })
-        : null}
+        : null
+        
+        
+        }
     </div>
   );
 }
