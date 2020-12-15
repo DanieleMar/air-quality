@@ -2,6 +2,7 @@
 
 constant.js
 .env
+/ignore
 
 # dependencies
 /node_modules
