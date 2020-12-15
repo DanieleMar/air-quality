@@ -13,6 +13,7 @@ function App() {
   const [showRegion, setShowRegion] = useState(false);
   const [lastRegion, setLastRegion] = useState("Nessuna");
   const [showCity, setShowCity] = useState(false);
+  const [lastCity, setLastCity] = useState("")
 
   const getData = async (what, region, city) => {
     //fetch data
@@ -30,6 +31,7 @@ function App() {
         setRegions([]);
       } else if (what === "specific-city") {
         setCity(data.current);
+        setLastCity(city)
         setCities([]);
         setShowCity(true);
       }
@@ -66,7 +68,7 @@ function App() {
       )}
       {!showRegion && showCity && city !== undefined && (
         <>
-          <h3></h3>
+          <h3>{lastCity}</h3>
           <div>Qualità dell'aria: {city.pollution.aqius} (U.S. AQI)</div>
 
           <div>Temperatura: {city.weather.tp} °C</div>
