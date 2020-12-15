@@ -20,18 +20,16 @@ function App() {
     if (data !== undefined) {
       if (what === "regions") {
         setShowRegion(true);
-        setRegions(data.data);
+        setRegions(data);
       } else if (what === "list-cities") {
-        console.log("list-cities data", data);
         setShowRegion(false);
 
         setLastRegion(region); //save the region for the specific-city param
         setShowCity(false); //avoid showing data of previous city (after select region) when user repeat a selection
-        setCities(data.data);
+        setCities(data);
         setRegions([]);
       } else if (what === "specific-city") {
-        console.log("city info", data.data.current);
-        setCity(data.data.current);
+        setCity(data.current);
         setCities([]);
         setShowCity(true);
       }
