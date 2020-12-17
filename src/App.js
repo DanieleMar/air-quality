@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { getAir, fetchAirAxios } from "./utils/api/api.js";
+import { getAir, fetchAirAxios } from "./service/api/api.js";
 import ListItem from "./components/ListItem";
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
@@ -13,7 +13,7 @@ function App() {
   const [showRegion, setShowRegion] = useState(false);
   const [lastRegion, setLastRegion] = useState("Nessuna");
   const [showCity, setShowCity] = useState(false);
-  const [lastCity, setLastCity] = useState("")
+  const [lastCity, setLastCity] = useState("");
 
   const getData = async (what, region, city) => {
     //fetch data
@@ -31,20 +31,48 @@ function App() {
         setRegions([]);
       } else if (what === "specific-city") {
         setCity(data.current);
-        setLastCity(city)
+        setLastCity(city);
         setCities([]);
         setShowCity(true);
       }
     }
   };
-  const fetchData = async (what, region, city) => {
 
+
+  // Fetch Data with Axios and Await
+  const fetchData = async (what, region, city) => {
     ////HOW TO GET VALUES FROM PROMISE SUCCESS
     const fetchData = await fetchAirAxios(what, region, city)
-      .then((response) => response) 
-      .then((data) => data); 
+    const data = await fetchData  
+    return data;
+  };
+  const giudizio = (value) => {
+    let valutation = "";
+    switch (true) {
+      case value <= 50:
+        valutation = "Buona";
+        break;
 
-     return fetchData
+      case value > 50 && value <= 100:
+        valutation = "Moderata";
+        break;
+      case value > 100 && value <= 150:
+        valutation = "Buona";
+        break;
+      case value > 150 && value <= 200:
+        valutation = "Dannosa";
+        break;
+      case value > 200 && value <= 300:
+        valutation = "Pericolosa";
+        break;
+      case value > 300 && value <= 500:
+        valutation = "Molto pericolosa";
+        break;
+      default:
+        valutation = "";
+        break;
+    }
+    return valutation;
   };
 
   return (
@@ -69,8 +97,9 @@ function App() {
       {!showRegion && showCity && city !== undefined && (
         <>
           <h3>{lastCity}</h3>
-          <div>Qualità dell'aria: {city.pollution.aqius} (U.S. AQI)</div>
-
+          <div>Qualità dell'aria: {city.pollution.aqius} U.S. AQI </div>
+          <div>Giudizio: {giudizio(city.pollution.aqius)}</div>
+          <br></br>
           <div>Temperatura: {city.weather.tp} °C</div>
           <div>Pressione atmosferica: {city.weather.pr} hPa</div>
           <div>Umidità: {city.weather.hu} %</div>
@@ -80,7 +109,6 @@ function App() {
         </>
       )}
 
-  
       {!showRegion &&
         cities !== undefined &&
         cities.length > 0 && //showed list of cities after the list of regions
