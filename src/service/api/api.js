@@ -37,7 +37,7 @@ export const getAir = async (what, region, city) => {
 
     return data;
   } catch (err) {
-    console.log("error", err); // TypeError: failed to fetch
+    console.log("Errore"); // TypeError: failed to fetch
   }
 };
 
@@ -96,7 +96,7 @@ export const fetchAirAxios = async (what, region, city) => {
     const data = await response.data;
     return data.data;
   } catch (err) {
-    console.log("error", err); // TypeError: failed to fetch
+    console.log("Errore"); // TypeError: failed to fetch
   }
 };
 
