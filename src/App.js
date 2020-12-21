@@ -83,7 +83,7 @@ function App() {
         <h2>Scopri la qualità dell'aria per molte città italiane</h2>{" "}
       </header>
       <section>
-        <Search />
+        {/* <Search /> */}
         <section>
           <Button variant="primary" onClick={() => getData("regions")}>
             Select a Region
@@ -105,7 +105,7 @@ function App() {
           <div>Umidità: {city.weather.hu} %</div>
 
           <div>Velocità del vento: {city.weather.ws} (m/s)</div>
-          <div>Icona: {city.weather.ic} </div>
+          {/* <div>Icona: {city.weather.ic} </div> */}
         </>
       )}
 
