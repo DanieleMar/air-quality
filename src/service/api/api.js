@@ -97,7 +97,7 @@ export const fetchAirAxios = async (what, region, city) => {
     return data.data;
   } catch (err) {
 
-    //DIFFERENT ERRORS MESSAGE
+    //DIFFERENT ERROR MESSAGES
     // console.log(err.response);
     // console.log(err.request);
     // console.log(err.message); 
