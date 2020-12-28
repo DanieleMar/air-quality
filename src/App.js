@@ -5,6 +5,8 @@ import ListItem from "./components/ListItem";
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Search from "./components/searchBox/index.js";
+import data from './datas/citiesJson/Apulia.json'
+import region from './datas/regions.json'
 
 function App() {
   const [regions, setRegions] = useState([]);
@@ -137,6 +139,11 @@ function App() {
             />
           );
         })}
+
+        <div>{data.map((el, index) =>{ // FETCH cities and regions FROM LOCAL FILES INSTEAD FROM API
+          console.log(el.city)
+          console.log(region)
+        })}</div>
     </div>
   );
 }
