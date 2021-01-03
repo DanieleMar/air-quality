@@ -37,7 +37,7 @@ export const getAir = async (what, region, city) => {
 
     return data;
   } catch (err) {
-    console.log("Errore"); // TypeError: failed to fetch
+    console.error(err); // TypeError: failed to fetch
   }
 };
 
@@ -91,20 +91,16 @@ export const fetchAirAxios = async (what, region, city) => {
 
     // const response = await apiClient.get(url, {params:getAirParams})
 
-
+                         
 
     const data = await response.data;
     return data.data;
   } catch (err) {
 
-    //DIFFERENT ERROR MESSAGES
-    // console.log(err.response);
-    // console.log(err.request);
-    // console.log(err.message); 
 
 
     
-    if (err.message=='Network Error') {console.log('Errore nel prelevare dati dalla API | Network Error')}
+    if (err.message=='Network Error') {console.error('Errore nel prelevare dati dalla API | Network Error')}
 
 
 
